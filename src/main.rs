@@ -71,10 +71,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let event = conn.wait_for_event()?;
         match event {
             Event::KeyPress(ev) => {
-                println!("KeyPress event, detail: {:?}", ev);
+                println!("KeyPress event, keycode={:?}, state={:?}", ev.detail, ev.state);
             }
             Event::KeyRelease(ev) => {
-                println!("KeyRelease event, detail: {:?}", ev);
+                println!("KeyRelease event, keycode={:?}, state={:?}", ev.detail, ev.state);
             }
             Event::Expose(ev) => {
                 println!("Expose event: x={}, y={}, width={}, height={}", ev.x, ev.y, ev.width, ev.height);
