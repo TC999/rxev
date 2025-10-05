@@ -2,6 +2,8 @@
 
 使用 Rust 重写的 xev 命令（Xorg 的键盘测试工具），仅能在类 Unix 下运行
 
+原版仓库地址：[GitLab](https://gitlab.freedesktop.org/xorg/app/xev)
+
 # 运行
 克隆代码到本地
 ```bash
