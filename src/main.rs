@@ -5,6 +5,9 @@ use x11rb::connection::Connection;
 use x11rb::protocol::xproto::*;
 use x11rb::rust_connection::RustConnection;
 use x11rb::protocol::Event;
+use x11rb::wrapper::ConnectionExt;
+use x11rb::protocol::xproto::ConnectionExt as OtherConnectionExt;
+
 use std::env;
 
 const INNER_WINDOW_WIDTH: u16 = 50;
@@ -27,7 +30,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let height = INNER_WINDOW_HEIGHT + 2 * (INNER_WINDOW_BORDER + INNER_WINDOW_Y as u16) + 100;
 
     conn.create_window(
-        x11rb::COPY_FROM_PARENT, outer_window, screen.root,
+        x11rb::COPY_FROM_PARENT.try_into().unwrap(), outer_window, screen.root,
         100, 100, width, height, 2,
         WindowClass::INPUT_OUTPUT,
         0,
@@ -40,7 +43,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 创建内部窗口
     let inner_window = conn.generate_id()?;
     conn.create_window(
-        x11rb::COPY_FROM_PARENT, inner_window, outer_window,
+        x11rb::COPY_FROM_PARENT.try_into().unwrap(), inner_window, outer_window,
         INNER_WINDOW_X, INNER_WINDOW_Y, INNER_WINDOW_WIDTH, INNER_WINDOW_HEIGHT, INNER_WINDOW_BORDER,
         WindowClass::INPUT_OUTPUT,
         0,
